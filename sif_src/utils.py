@@ -2,6 +2,8 @@ import os
 import requests
 import zipfile
 import numpy as np
+import jax.numpy as jnp
+import tqdm
 
 def load_glove(output_dir):
     url = 'https://nlp.stanford.edu/data/glove.6B.zip'
@@ -27,12 +29,14 @@ def load_glove(output_dir):
     return os.path.join(output_dir, 'glove.6B', 'glove.6B.300d.txt')
 
 
-def load_word_vectors(file_path):
-    word_vectors = {}
-    with open(file_path, 'r') as f:
-        for line in f:
+def load_glove_vectors(filepath):
+    embeddings_index = {}
+    with open(filepath, encoding='utf-8') as f:
+        num_lines = sum(1 for line in f)
+        f.seek(0)  # Reset file pointer to beginning
+        for line in tqdm.tqdm(f, total=num_lines, desc="Loading GloVe Vectors"):
             values = line.split()
             word = values[0]
-            vector = np.asarray(values[1:], dtype='float32')
-            word_vectors[word] = vector
-    return word_vectors
+            coefs = jnp.array(values[1:], dtype=jnp.float32)
+            embeddings_index[word] = coefs
+    return embeddings_index
