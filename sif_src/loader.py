@@ -23,28 +23,3 @@ def load_data(directory):
             dfs.append(df)
     combined_df = pd.concat(dfs, ignore_index=True)
     return combined_df
-
-"""def load_data(directory):
-    dfs = []
-    for filename in os.listdir(directory):
-        if filename.endswith('.arrow'):
-            file_path = os.path.join(directory, filename)
-            table = pq.read_table(file_path)
-            df = table.to_pandas()
-            dfs.append(df)
-    combined_df = pd.concat(dfs, ignore_index=True)
-    return combined_df"""
-
-"""
-def combine_arrow_files(directory):
-    dfs = []
-    for filename in os.listdir(directory):
-        if filename.endswith('.arrow'):
-            file_path = os.path.join(directory, filename)
-            df = read_arrow_file(file_path)
-            dfs.append(df)
-    combined_df = pd.concat(dfs, ignore_index=True)
-    return combined_df"""
-
-def save_processed_data(data, file_path):
-    data.to_csv(file_path, index=False)
