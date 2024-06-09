@@ -26,7 +26,7 @@ def load_glove(output_dir):
 
     return os.path.join(output_dir, 'glove.6B', 'glove.6B.300d.txt')
 
-def load_glove_embeddings(glove_file_path):
+def load_glove_vectors(glove_file_path):
     """
     Load GloVe embeddings from a .txt file.
     
