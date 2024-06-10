@@ -27,15 +27,7 @@ def load_glove(output_dir):
     return os.path.join(output_dir, 'glove.6B', 'glove.6B.300d.txt')
 
 def load_glove_vectors(glove_file_path):
-    """
-    Load GloVe embeddings from a .txt file.
-    
-    Args:
-    glove_file_path (str): Path to the GloVe .txt file.
 
-    Returns:
-    dict: A dictionary where keys are words and values are their embeddings.
-    """
     embeddings = {}
     with open(glove_file_path, 'r', encoding='utf-8') as f:
         for line in f:
@@ -72,7 +64,7 @@ def calculate_glove_corpus_embeddings(corpus, glove_embeddings):
                     valid_words += 1
             
             if valid_words > 0:
-                text_embedding /= valid_words  # Average the embeddings
+                text_embedding /= valid_words 
             
             text_embeddings.append(text_embedding)
         
