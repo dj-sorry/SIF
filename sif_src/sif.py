@@ -135,7 +135,9 @@ def compute_sif_embeddings_texts(corpus: List[List[str]],
     return embeddings
 
 
-def remove_pc_sif(embeddings: List[np.ndarray], n: int = 1, alpha: float = 0.0001) -> List[np.ndarray]:
+def remove_pc_sif(embeddings: List[np.ndarray], 
+                  n: int = 1, 
+                  alpha: float = 0.0001) -> List[np.ndarray]:
     """
     Remove the first n principal components from each embedding using the SIF method.
     Recall that removing is along these lines: "vs ← vs - u * u^T * vs"
@@ -145,13 +147,12 @@ def remove_pc_sif(embeddings: List[np.ndarray], n: int = 1, alpha: float = 0.000
     embedding_proj -> u^T * vs
     alpha + embedding_proj -> u * u^T * vs 
     embedding_pc_removed -> "vs - u * u^T * vs" -> this is the value returned. 
-
     ####
     TODO: docstrings here
     """
     combined_embeddings = np.vstack(embeddings) #gather all embeddings in one matrix...
 
-    svd = TruncatedSVD(n_components=n, n_iter=7, random_state=0) #特異値を取得する
+    svd = TruncatedSVD(n_components=n, n_iter=7, random_state=0) #prin compを取得する
     svd.fit(combined_embeddings)
 
     embeddings_pc_removed = []
